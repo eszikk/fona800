@@ -1,0 +1,13 @@
+.gradle
+/build/
+!gradle
+.idea
+.out
+
+*.class
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
+
