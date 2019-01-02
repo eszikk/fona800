@@ -1,0 +1,129 @@
+https://www.raviyp.com/embedded/194-sim900-gprs-http-at-commands
+https://stackoverflow.com/questions/33346425/sim800-at-command-post-data-to-server
+
+Setting up GPRS connection
+
+Set the connection type to GPRS
+
+AT+SAPBR=3,1,"Contype","GPRS"
+
+OK
+
+ 
+
+Set the APN to to "www" since i am using a Vodafone SIM card, It might be different for you, and depends on the network
+
+AT+SAPBR=3,1,"APN","internet.vodafone.net"
+
+OK
+
+ 
+
+Enable the GPRS
+
+AT+SAPBR=1,1
+
+OK
+
+ 
+
+Query if the connection is setup properly, if we get back a IP address then we can proceed
+
+AT+SAPBR=2,1
+
++SAPBR: 1,1,"100.120.204.132"
+
+OK
+
+We were allocated a IP address and now we can proceed by enabling the HTTP mode
+
+AT+HTTPINIT
+
+OK
+
+ 
+
+OPTIONAL,  ONLY IF URL is HTTPS or SSL enabled: Also Remove the http:// part in the HTTPPARA="URL",xxxx command
+
+AT+HTTPSSL=1
+
+OK
+
+ 
+
+Start by setting up the HTTP bearer profile identifier
+
+AT+HTTPPARA="CID",1
+
+OK
+
+ 
+
+Set the url  to the address of the webpage you want to access
+
+AT+HTTPPARA="URL","http://www.vanenet.hu/"
+
+OK
+
+ 
+
+Start the HTTP GET session, by giving this command
+
+AT+HTTPACTION=0
+
+OK
+
+ 
+
+The below output from module indicates it  has read 654 bytes of data and the response of the HTTP GET request is 200, which means success
+
++HTTPACTION:0,200,654
+
+ 
+
+The below command tells the module that we want to read the received data
+
+AT+HTTPREAD
+
+The below is the data read from the webpage
+
++HTTPREAD:654
+
+Logged Meter Readings:<br>Date Time: Current Voltage Temp.<br>
+
+<br>Mon May 19 23:56:12 2014 :485683465429634
+
+<br> :485683465429634
+
+<br>Tue May 20 00:00:13 2014 :948598437599980
+
+<br>Tue May 20 00:04:41 2014 :948598437599980
+
+<br>Tue May 20 00:24:39 2014 :9485
+
+<br>Tue May 20 00:25:37 2014 :9485
+
+<br>Tue May 20 00:40:50 2014 :23423
+
+<br>Wed May 21 00:07:19 2014 :948598437599980
+
+<br>Wed May 21 00:43:20 2014 :34234324
+
+<br>Wed May 21 00:47:15 2014 :34234324
+
+<br>Wed May 21 11:12:10 2014 :34234324
+
+<br>Wed May 21 15:23:22 2014 :34234324
+
+<br>Wed May 21 15:28:07 2014 :564575676
+
+<br>Wed May 21 15:38:06 2014 :564575676
+
+<br>Wed May 21 15:43:53 2014 :564575676<br>
+
+OK 
+
+Disable GPRS
+AT+SAPBR=0,1
+
+OK
